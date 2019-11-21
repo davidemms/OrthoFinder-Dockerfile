@@ -31,7 +31,7 @@ RUN wget -P /usr/local/bin ${FASTTREE_URL} && \
   chmod a+x /usr/local/bin/FastTree
 
 ################# MCL install ########################
-ENV MCL_URL http://micans.org/mcl/src/mcl-14-137.tar.gz
+ENV MCL_URL https://micans.org/mcl/src/mcl-14-137.tar.gz
 ENV MCL_PATH /opt/mcl-14-137
 
 WORKDIR /opt
@@ -61,16 +61,16 @@ WORKDIR ${FASTME_PATH}
 RUN ./configure --prefix=/usr/local && make install
 
 ################# DIAMOND install ########################
-ENV DIAMOND_URL https://github.com/bbuchfink/diamond/releases/download/v0.9.25/diamond-linux64.tar.gz
+ENV DIAMOND_URL https://github.com/bbuchfink/diamond/releases/download/v0.9.29/diamond-linux64.tar.gz
 
 WORKDIR /opt
 RUN wget ${DIAMOND_URL} --no-check-certificate -O - | tar xvzf - && mv diamond /usr/local/bin/diamond
 
 ########################### orthoFinder install & run tests #############################
-ENV ORTHOFINDER_VERSION 2.3.3
-ENV ORTHOFINDER_URL https://github.com/davidemms/OrthoFinder/releases/download/${ORTHOFINDER_VERSION}/OrthoFinder-${ORTHOFINDER_VERSION}_glibc-2.19.tar.gz
-ENV ORTHOFINDER_FILE_NAME OrthoFinder-${ORTHOFINDER_VERSION}_glibc-2.19.tar.gz
-ENV ORTHOFINDER_PATH /opt/OrthoFinder-${ORTHOFINDER_VERSION}
+ENV ORTHOFINDER_VERSION 2.3.7
+ENV ORTHOFINDER_FILE_NAME OrthoFinder_glibc-2.17.tar.gz
+ENV ORTHOFINDER_URL https://github.com/davidemms/OrthoFinder/releases/download/${ORTHOFINDER_VERSION}/${ORTHOFINDER_FILE_NAME}
+ENV ORTHOFINDER_PATH /opt/OrthoFinder
 
 WORKDIR /opt
 RUN wget ${ORTHOFINDER_URL} --no-check-certificate && tar -xvzf ${ORTHOFINDER_FILE_NAME}
