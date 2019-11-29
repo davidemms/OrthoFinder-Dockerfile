@@ -40,16 +40,6 @@ WORKDIR ${MCL_PATH}
 
 RUN ./configure --prefix=/usr/local && make install
 
-################# DLCpar install ########################
-ENV DLCPAR_URL https://www.cs.hmc.edu/~yjw/software/dlcpar/pub/sw/dlcpar-1.1.tar.gz
-ENV DLCPAR_PATH /opt/dlcpar-1.1
-
-WORKDIR /opt
-RUN wget ${DLCPAR_URL} --no-check-certificate -O - | tar zxvf -
-WORKDIR ${DLCPAR_PATH}
-
-RUN python setup.py install
-
 ################ FastME install ##########################
 ENV FASTME_URL https://gite.lirmm.fr/atgc/FastME/raw/master/tarball/fastme-2.1.6.1.tar.gz
 ENV FASTME_PATH fastme-2.1.6.1
@@ -67,8 +57,8 @@ WORKDIR /opt
 RUN wget ${DIAMOND_URL} --no-check-certificate -O - | tar xvzf - && mv diamond /usr/local/bin/diamond
 
 ########################### orthoFinder install & run tests #############################
-ENV ORTHOFINDER_VERSION 2.3.7
-ENV ORTHOFINDER_FILE_NAME OrthoFinder_glibc-2.17.tar.gz
+ENV ORTHOFINDER_VERSION 2.3.8
+ENV ORTHOFINDER_FILE_NAME OrthoFinder_glibc-2.15.tar.gz
 ENV ORTHOFINDER_URL https://github.com/davidemms/OrthoFinder/releases/download/${ORTHOFINDER_VERSION}/${ORTHOFINDER_FILE_NAME}
 ENV ORTHOFINDER_PATH /opt/OrthoFinder
 
