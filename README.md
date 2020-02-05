@@ -3,31 +3,22 @@ Dockerfile for [davidemms/OrthoFinder](https://github.com/davidemms/OrthoFinder)
 
 Many thanks to Monjeaud Cyril & Roder Thomas for initially developing this dockerfile.
 
-How to use? See https://cloud.docker.com/repository/docker/davidemms/orthofinder/
+## Running OrthoFinder for real
+Using default options: 
 
-Current version: 2.3.8
+`docker run --ulimit nofile=1000000:1000000 -it --rm -v /full/path/to/fastas:/input:Z davidemms/orthofinder orthofinder -f /input`
 
-## Building
-Docker: `docker build --tag davidemms/orthofinder:<tag> .`
+Print the help file to see all options:
 
-Podman: `podman build --file=Dockerfile --tag=davidemms/orthofinder:<tag> .`
+`docker run -it --rm davidemms/orthofinder orthofinder -h`
 
-## Run interactively
-Docker: `docker run --interactive --tty --rm davidemms/orthofinder:<tag> sh`
 
-Podman: `podman run --interactive --tty --rm davidemms/orthofinder:<tag> sh`
+Docker, using multiple sequence alignment trees: 
 
-## Run for real
-Docker: `docker run --ulimit nofile=1000000:1000000 -it --rm -v /full/path/to/fastas:/input:Z davidemms/orthofinder:<tag> orthofinder -f /input`
+`docker run --ulimit nofile=1000000:1000000 -it --rm -v /full/path/to/fastas:/input:Z davidemms/orthofinder orthofinder -f /input -M msa`
 
-Docker, using multiple sequence alignment trees: `docker run --ulimit nofile=1000000:1000000 -it --rm -v /full/path/to/fastas:/input:Z davidemms/orthofinder:<tag> orthofinder -f /input -M msa`
 
-podman: `podman run --ulimit=host                   -it --rm -v /full/path/to/fastas:/input:Z localhost/davidemms/orthofinder:<tag> orthofinder -f /input`
-
-## Push to dockerhub
-`docker push davidemms/orthofinder:<tag>`
-
-## Possible error
+## Possible errors
 If the container fails with `IOError: [Errno 24] Too many open files`, ensure the ulimit on the host is high enough (`ulimit -a`) and run the container with this additional option:
 
 Docker: `--ulimit nofile=1000000:1000000`
