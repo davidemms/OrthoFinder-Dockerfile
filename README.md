@@ -33,3 +33,6 @@ If the container fails with `IOError: [Errno 24] Too many open files`, ensure th
 Docker: `--ulimit nofile=1000000:1000000`
 
 Podman: `--ulimit=host`
+
+If Sophos is running on the host machine this can slow OrthoFinder down considerably since it often needs to access thousands of files. If you wish to, see the Sophos website for details on turning Sophos off:
+<https://community.sophos.com/kb/en-us/133173>
