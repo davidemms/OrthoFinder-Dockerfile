@@ -7,7 +7,6 @@
 
 FROM debian:buster
 RUN apt-get update && apt-get install -y --no-install-recommends \
-		curl \
 	&& rm -rf /var/lib/apt/lists/*
 
 
@@ -15,7 +14,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 ENV DEBIAN_FRONTEND noninteractive
 
 ################## Update & upgrade ######################
-ENV PACKAGES wget make gcc g++ mafft unzip libatlas-base-dev gfortran
+ENV PACKAGES wget mafft mcl libatlas-base-dev
 
 RUN apt-get update -y
 RUN apt-get install -y ${PACKAGES}
@@ -26,25 +25,12 @@ ENV FASTTREE_URL http://www.microbesonline.org/fasttree/FastTree
 RUN wget -P /usr/local/bin ${FASTTREE_URL} && \
   chmod a+x /usr/local/bin/FastTree
 
-################# MCL install ########################
-ENV MCL_URL https://micans.org/mcl/src/mcl-14-137.tar.gz
-ENV MCL_PATH /opt/mcl-14-137
-
-WORKDIR /opt
-RUN wget ${MCL_URL} -O - | tar xvzf -
-WORKDIR ${MCL_PATH}
-
-RUN ./configure --prefix=/usr/local && make install
-
 ################ FastME install ##########################
 ENV FASTME_URL https://gite.lirmm.fr/atgc/FastME/raw/master/tarball/fastme-2.1.6.1.tar.gz
 ENV FASTME_PATH fastme-2.1.6.1
 
 WORKDIR /opt
-RUN wget ${FASTME_URL} --no-check-certificate -O - | tar zxvf -
-WORKDIR ${FASTME_PATH}
-
-RUN ./configure --prefix=/usr/local && make install
+RUN wget ${FASTME_URL} --no-check-certificate -O - | tar zxvf - && mv ${FASTME_PATH}/binaries/fastme-2.1.5.2-linux64 /usr/local/bin/fastme
 
 ################# DIAMOND install ########################
 ENV DIAMOND_URL https://github.com/bbuchfink/diamond/releases/download/v0.9.29/diamond-linux64.tar.gz
