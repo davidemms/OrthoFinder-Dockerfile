@@ -39,8 +39,8 @@ WORKDIR /opt
 RUN wget ${DIAMOND_URL} --no-check-certificate -O - | tar xvzf - && mv diamond /usr/local/bin/diamond
 
 ########################### orthoFinder install & run tests #############################
-ENV ORTHOFINDER_VERSION 2.3.8
-ENV ORTHOFINDER_FILE_NAME OrthoFinder_glibc-2.15.tar.gz
+ENV ORTHOFINDER_VERSION 2.3.10
+ENV ORTHOFINDER_FILE_NAME OrthoFinder.tar.gz
 ENV ORTHOFINDER_URL https://github.com/davidemms/OrthoFinder/releases/download/${ORTHOFINDER_VERSION}/${ORTHOFINDER_FILE_NAME}
 ENV ORTHOFINDER_PATH /opt/OrthoFinder
 
