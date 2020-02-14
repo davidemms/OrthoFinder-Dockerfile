@@ -39,7 +39,7 @@ WORKDIR /opt
 RUN wget ${DIAMOND_URL} --no-check-certificate -O - | tar xvzf - && mv diamond /usr/local/bin/diamond
 
 ########################### orthoFinder install & run tests #############################
-ENV ORTHOFINDER_VERSION 2.3.10
+ENV ORTHOFINDER_VERSION 2.3.11
 ENV ORTHOFINDER_FILE_NAME OrthoFinder.tar.gz
 ENV ORTHOFINDER_URL https://github.com/davidemms/OrthoFinder/releases/download/${ORTHOFINDER_VERSION}/${ORTHOFINDER_FILE_NAME}
 ENV ORTHOFINDER_PATH /opt/OrthoFinder
@@ -48,6 +48,7 @@ WORKDIR /opt
 RUN wget ${ORTHOFINDER_URL} --no-check-certificate && tar -xvzf ${ORTHOFINDER_FILE_NAME}
 RUN ln -s ${ORTHOFINDER_PATH}/orthofinder /usr/local/bin/
 RUN ln -s ${ORTHOFINDER_PATH}/config.json /usr/local/bin/
+RUN rm -r ${ORTHOFINDER_PATH}/bin
 
 WORKDIR /root
 RUN pwd && ls -1
