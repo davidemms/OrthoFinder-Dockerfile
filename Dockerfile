@@ -26,22 +26,21 @@ RUN wget -P /usr/local/bin ${FASTTREE_URL} && \
   chmod a+x /usr/local/bin/FastTree
 
 ################ FastME install ##########################
-ENV FASTME_URL https://gite.lirmm.fr/atgc/FastME/raw/master/tarball/fastme-2.1.6.1.tar.gz
-ENV FASTME_PATH fastme-2.1.6.1
+ENV FASTME_URL https://gite.lirmm.fr/atgc/FastME/raw/master/tarball/fastme-2.1.6.2.tar.gz
+ENV FASTME_PATH fastme-2.1.6.2
 
 WORKDIR /opt
-RUN wget ${FASTME_URL} --no-check-certificate -O - | tar zxvf - && mv ${FASTME_PATH}/binaries/fastme-2.1.5.2-linux64 /usr/local/bin/fastme
+RUN wget ${FASTME_URL} --no-check-certificate -O - | tar zxvf - && mv ${FASTME_PATH}/binaries/fastme-2.1.6.2-linux64 /usr/local/bin/fastme
 
 ################# DIAMOND install ########################
-ENV DIAMOND_URL https://github.com/bbuchfink/diamond/releases/download/v0.9.29/diamond-linux64.tar.gz
+ENV DIAMOND_URL https://github.com/bbuchfink/diamond/releases/latest/download/diamond-linux64.tar.gz
 
 WORKDIR /opt
 RUN wget ${DIAMOND_URL} --no-check-certificate -O - | tar xvzf - && mv diamond /usr/local/bin/diamond
 
 ########################### orthoFinder install & run tests #############################
-ENV ORTHOFINDER_VERSION 2.3.12
 ENV ORTHOFINDER_FILE_NAME OrthoFinder.tar.gz
-ENV ORTHOFINDER_URL https://github.com/davidemms/OrthoFinder/releases/download/${ORTHOFINDER_VERSION}/${ORTHOFINDER_FILE_NAME}
+ENV ORTHOFINDER_URL https://github.com/davidemms/OrthoFinder/releases/latest/download/${ORTHOFINDER_FILE_NAME}
 ENV ORTHOFINDER_PATH /opt/OrthoFinder
 
 WORKDIR /opt
