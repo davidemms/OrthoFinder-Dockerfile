@@ -26,11 +26,12 @@ RUN wget -P /usr/local/bin ${FASTTREE_URL} && \
   chmod a+x /usr/local/bin/FastTree
 
 ################ FastME install ##########################
-ENV FASTME_URL https://gite.lirmm.fr/atgc/FastME/raw/master/tarball/fastme-2.1.6.2.tar.gz
-ENV FASTME_PATH fastme-2.1.6.2
+ENV FASTME_VER 2.1.6.2
 
 WORKDIR /opt
-RUN wget ${FASTME_URL} --no-check-certificate -O - | tar zxvf - && mv ${FASTME_PATH}/binaries/fastme-2.1.6.2-linux64 /usr/local/bin/fastme
+RUN wget https://gite.lirmm.fr/atgc/FastME/-/archive/v${FASTME_VER}/FastME-v${FASTME_VER}.tar.gz --no-check-certificate -O - | tar zxvf - \
+  && tar xzf  FastME-v${FASTME_VER}/tarball/fastme-*.tar.gz  \  
+  && mv fastme-*/binaries/fastme-*-linux64 /usr/local/bin/fastme
 
 ################# DIAMOND install ########################
 ENV DIAMOND_URL https://github.com/bbuchfink/diamond/releases/latest/download/diamond-linux64.tar.gz
