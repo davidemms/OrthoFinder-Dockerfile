@@ -5,9 +5,9 @@
 # Based on cmonjeau/orthofinder (Monjeaud Cyril <Cyril.Monjeaud@irisa.fr>)
 ################################################
 
-FROM debian:buster
+FROM debian:buster-slim
 RUN apt-get update && apt-get install -y --no-install-recommends \
-	&& rm -rf /var/lib/apt/lists/*
+  && rm -rf /var/lib/apt/lists/*
 
 
 # Set noninterative mode
