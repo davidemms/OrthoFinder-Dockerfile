@@ -5,7 +5,7 @@
 # Based on cmonjeau/orthofinder (Monjeaud Cyril <Cyril.Monjeaud@irisa.fr>)
 ################################################
 
-FROM debian:bullseye
+FROM python:3.10-slim-bullseye
 RUN apt-get update && apt-get install -y --no-install-recommends \
 	&& rm -rf /var/lib/apt/lists/*
 
@@ -14,7 +14,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 ENV DEBIAN_FRONTEND noninteractive
 
 ################## Update & upgrade ######################
-ENV PACKAGES wget mafft mcl libatlas-base-dev python3-pip
+ENV PACKAGES wget mafft mcl libatlas-base-dev
 
 RUN apt-get update -y
 RUN apt-get install -y ${PACKAGES}
