@@ -5,7 +5,7 @@
 # Based on cmonjeau/orthofinder (Monjeaud Cyril <Cyril.Monjeaud@irisa.fr>)
 ################################################
 
-FROM debian:buster
+FROM debian:bullseye
 RUN apt-get update && apt-get install -y --no-install-recommends \
 	&& rm -rf /var/lib/apt/lists/*
 
@@ -14,10 +14,12 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 ENV DEBIAN_FRONTEND noninteractive
 
 ################## Update & upgrade ######################
-ENV PACKAGES wget mafft mcl libatlas-base-dev
+ENV PACKAGES wget mafft mcl libatlas-base-dev python3-pip
 
 RUN apt-get update -y
 RUN apt-get install -y ${PACKAGES}
+
+RUN pip install numpy scipy
 
 ################# Fastree install ########################
 ENV FASTTREE_URL http://www.microbesonline.org/fasttree/FastTree
@@ -37,18 +39,17 @@ RUN wget https://gite.lirmm.fr/atgc/FastME/-/archive/v${FASTME_VER}/FastME-v${FA
 ENV DIAMOND_URL https://github.com/bbuchfink/diamond/releases/latest/download/diamond-linux64.tar.gz
 
 WORKDIR /opt
-RUN wget ${DIAMOND_URL} --no-check-certificate -O - | tar xvzf - && mv diamond /usr/local/bin/diamond
 
 ########################### orthoFinder install & run tests #############################
-ENV ORTHOFINDER_FILE_NAME OrthoFinder.tar.gz
+ENV ORTHOFINDER_FILE_NAME OrthoFinder_source.tar.gz
 ENV ORTHOFINDER_URL https://github.com/davidemms/OrthoFinder/releases/latest/download/${ORTHOFINDER_FILE_NAME}
-ENV ORTHOFINDER_PATH /opt/OrthoFinder
+ENV ORTHOFINDER_PATH /opt/OrthoFinder_source
 
 WORKDIR /opt
 RUN wget ${ORTHOFINDER_URL} --no-check-certificate && tar -xvzf ${ORTHOFINDER_FILE_NAME}
-RUN ln -s ${ORTHOFINDER_PATH}/orthofinder /usr/local/bin/
+RUN ln -s ${ORTHOFINDER_PATH}/orthofinder.py /usr/local/bin/orthofinder
 RUN ln -s ${ORTHOFINDER_PATH}/config.json /usr/local/bin/
-RUN rm -r ${ORTHOFINDER_PATH}/bin
+RUN ls ${ORTHOFINDER_PATH}
 
 WORKDIR /root
 RUN pwd && ls -1
