@@ -35,9 +35,6 @@ RUN wget https://gite.lirmm.fr/atgc/FastME/-/archive/v${FASTME_VER}/FastME-v${FA
   && tar xzf  FastME-v${FASTME_VER}/tarball/fastme-*.tar.gz  \  
   && mv fastme-*/binaries/fastme-*-linux64 /usr/local/bin/fastme
 
-################# DIAMOND install ########################
-ENV DIAMOND_URL https://github.com/bbuchfink/diamond/releases/latest/download/diamond-linux64.tar.gz
-
 WORKDIR /opt
 
 ########################### orthoFinder install & run tests #############################
