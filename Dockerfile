@@ -14,7 +14,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 ENV DEBIAN_FRONTEND noninteractive
 
 ################## Update & upgrade ######################
-ENV PACKAGES wget mafft mcl libatlas-base-dev
+ENV PACKAGES wget mafft mcl libatlas-base-dev ncbi-blast+
 
 RUN apt-get update -y
 RUN apt-get install -y ${PACKAGES}
